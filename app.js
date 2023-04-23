@@ -4,12 +4,23 @@ const cors = require('cors');
 
 const app = express()
 const port = 4000 
+<<<<<<< HEAD
+const formRouter = require('./routes/form')
+// const boardRouter = require('./routes/board')
+const mysql = require('mysql')
+=======
 app.use(cors())
+>>>>>>> 36a9159c59e7844fe23ddc47b84c963e60dfcd30
 const dotenv = require('dotenv').config()
 const mysqlConObj = require('./mysql')
 const db = mysqlConObj.init()
 
 mysqlConObj.open(db)
+
+app.use('/form',formRouter)
+
+
+app.set('view engine','ejs')
 
 app.get('/',function(req,res){
    res.send('Hello')
