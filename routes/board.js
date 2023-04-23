@@ -20,5 +20,3 @@ router.get('/list/:page', function(req, res, next) {
   }
   );
 
-
-
