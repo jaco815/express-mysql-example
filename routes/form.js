@@ -1,12 +1,16 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-console.log('router loaded');
+console.log('form router')
 
-router.get('/',(req,res)=>{
-   
-      res.render('index');
+router.get('/', function(req, res, next) {
+      res.render('form', 
+      { 
+            name: 'HS Noh',
+            blog : 'djaco',
+            homepage : 'jacohome'
+      }      
+      );
 });
-
 
 module.exports = router;

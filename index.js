@@ -6,9 +6,10 @@ const app = express();
 
 app.set('port', process.env.PORT || 4000);
 
-app.get('/', (req, res) => {
-   res.send('Root');
-});
+
+
+var formRouter = require('./routes/form');
+app.use('/form',  formRouter);
 
 app.get('/db', (req, res) => {
 
@@ -29,30 +30,17 @@ app.get('/db', (req, res) => {
       }
    })
 
-   // connection.query('SELECT * FROM board',function(err,rows){
-   //    if(err)
-   //       console.log(err)
-   //    else
-   //       console.log(rows)
-   // })
+
    var x = 1 ; 
    var sql = 'SELECT * FROM BOARD WHERE idx = ?';
    connection.query(sql ,[1], (err, rows) => {
       if (err) 
          console.log(err);     
       console.log(rows);
-      // res.send(results);  
+
    });
    
-   var sql2 = 'INSERT INTO board ( name , title , content, regdate , modidate) VALUES (?, ?, ? ,?,?)';
-   connection.query(sql2 ,['djaco', 'title2', 'content2', '2021-06-01', '2021-06-01'   ], (err, rows) => {
-      if (err) 
-         console.log(err);     
-      console.log(rows);
-      // res.send(results);  
-   });
-   
-   
+
    
    if(err)
          console.log(err)
@@ -63,15 +51,13 @@ app.get('/db', (req, res) => {
 
    res.send('db success')
    
-   // connection.query('INSERT INTO board (title, content) VALUES ("test", "test")', function(err, rows){
-   //    if(err)
-   //       console.log(err)
-   //    else
-   //       console.log(rows)
-   // }
-   
+      
    connection.end();
 });
+
+app.use((req, res, next) => {
+   res.status(404).send('Sorry cant find that!');
+})
 
 app.listen(app.get('port'), () => {
    console.log('Express server listening on port ' + app.get('port'));
